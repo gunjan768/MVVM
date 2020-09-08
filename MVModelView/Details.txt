@@ -1,0 +1,18 @@
+ We can convert the java class into so called entities which basically each represent table in SQLite database. And we have Data Access Object ( DAO )
+ which is used to communicate with the SQLite. ViewModel which is a class which has the job of holding and preparing all data for the UI so we don't
+ have to put them directly into our activity or fragment instead activity/fragment connects to ViewModel and get all the necessary data from there
+ then only has job of drawing it onto the screen. So basically ViewModel is a gateway for the UI controller ( activity/fragment ). ViewModel also
+ survives the configuration changes like when you rotate the screen or when you change the textSize ( it will not loose the state and will all
+ the states ). ViewModel doesn't care from where the data comes, it just gets the data and do it's job. Hence there it an another class b/w the
+ ViwModel and the dataSource ( can be webservice or database ) called Repository ( recommended to use but it's not a part of Architecture component ).
+ ViewModel connects with the Repository class and in turns this Repository class talks to the data source ( how data is fetched and from which
+ source data is fetched ). Hence Repository creates a clean API for fetching data and modularize our app and gives a ViewModel a single access point.
+
+ Above process comes under MVVM ( Model View ViewModel ) architecture. DataSource is the model, activities/fragments ( or UI in other words ) build
+ a View and ViewModel class is obviously a ViewModel. Using MVVM we a nice clean architecture where layers are modular and decoupled from each other
+ and every part has a well defined responsibility. ViewModel doesn't know how the data are retrieved from different sources. UI controller
+ ( activity or fragment ) doesn't store any data but trust the ViewModel for the same and also doesn't initiate any database operation directly.
+ LiveData is a wrapper that can hold can type of data including list and it can be observed by the UI controller which means that whenever the data
+ in this LiveData changes, the observer will be automatically notified with the new data and can refresh UI. LiveData is lifCycle aware which means
+ it knows that when activity/fragment that observes it is in the background and automatically stops updating it until it comes to the foreground so
+ we don't have to manually stop or resume observation in our activity/fragment lifeCycle methods. That is saves from potential bug or memory leak.
